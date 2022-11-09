@@ -45,6 +45,11 @@ addDataForm.addEventListener('submit', e => {
     const xValue = parseFloat(xInput.value)
     const yValue = parseFloat(yInput.value)
 
+    if(isNaN(xValue) || isNaN(yValue)) {
+        alert('Both X and Y must be valid numbers.')
+        return
+    }
+
     for(let i = 0; i < x.length; i++) {
         if(x[i] == xValue && Y[i] == yValue) {
             alert('That data point already exists.')
