@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Linear Regression Demo</title>
+    <style>
+        :not(code) {
+            font-family: sans-serif;
+        }
+
+        code {
+            background-color: gainsboro;
+            border-radius: 0.2rem;
+        }
+
+        canvas {
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+    <p>Simple, instant bias-less linear regression without using gradient descent or derivatives</p>
+    <canvas width="256" height="256"></canvas>
+    <hr />
+    <h2>Data Points</h2>
+    <p>Add data points and see the best fit line with no Y-intercept in the graph above.</p>
+    <form id="add-data-form">
+        X: <input type="number" id="x-input" />
+        Y: <input type="number" id="y-input" />
+        <button type="submit">Add</button>
+    </form>
+    <ul id="data-list"></ul>
+    <hr />
+
+    <h2>The Math</h2>
+    <p>
+        The formula for a line with no Y-intercept (bias) is <code>w * x</code> where <code>w</code> is the weight.
+        If <code>y</code> is the true Y value, then the squared error loss is <code>(w * x - y)**2</code>.
+        Factoring out <code>x</code> gives <code>(x * (w - y/x))**2</code>, and then <code>x</code> can be squared separately, which makes <code>x**2 * (w - y/x)**2</code>.
+        This is a quadratic in <code>w</code> - an upward opening parabola. The minimum of an upward opening parabola is always at the vertex,
+        and the vertex of this parabola is at a <code>w</code> value of <code>y/x</code>. For multiple data points, we need to take the weighted average
+        of the optimal values for each data point, weighted by the coefficient <code>x**2</code>.
+        This gives something like <code>(x1**2 * y1/x1 + x2**2 * y2/x2 ...)/(x1**2 + x2**2 ...)</code>, or <code>(x1 * y1 + x2 * y2 ...)/(x1**2 + x2**2 ...)</code>.
+        That is the formula for the slope of the best fit line with no Y-intercept.
+    </p>
+
+    <template id="data-point-template">
+        <li>
+            X: <span class="data-point-x"></span>
+            Y: <span class="data-point-y"></span>
+            <button class="data-point-remove-btn">Remove</button>
+        </li>
+    </template>
+
+    <script src="index.js"></script>
+</body>
+</html>
