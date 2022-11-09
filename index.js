@@ -52,6 +52,7 @@ addDataForm.addEventListener('submit', e => {
         x.splice(i, 1)
         Y.splice(i, 1)
         el.parentElement.removeChild(el)
+        draw()
     })
     dataList.appendChild(el)
     xInput.value = ''
