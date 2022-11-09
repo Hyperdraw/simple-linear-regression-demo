@@ -42,15 +42,30 @@ function draw() {
 
 addDataForm.addEventListener('submit', e => {
     e.preventDefault()
-    const i = x.length
+    const xValue = parseFloat(xInput.value)
+    const yValue = parseFloat(yInput.value)
+
+    for(let i = 0; i < x.length; i++) {
+        if(x[i] == xValue && Y[i] == yValue) {
+            alert('That data point already exists.')
+            return
+        }
+    }
+
     x.push(parseFloat(xInput.value))
     Y.push(parseFloat(yInput.value))
     const el = document.importNode(dataPointTemplate.content.firstElementChild, true)
-    el.querySelector('.data-point-x').textContent = xInput.value
-    el.querySelector('.data-point-y').textContent = yInput.value
+    el.querySelector('.data-point-x').textContent = xValue
+    el.querySelector('.data-point-y').textContent = yValue
     el.querySelector('.data-point-remove-btn').addEventListener('click', () => {
-        x.splice(i, 1)
-        Y.splice(i, 1)
+        for(let i = 0; i < x.length; i++) {
+            if(x[i] == xValue && Y[i] == yValue) {
+                x.splice(i, 1)
+                Y.splice(i, 1)
+                break
+            }
+        }
+
         el.parentElement.removeChild(el)
         draw()
     })
